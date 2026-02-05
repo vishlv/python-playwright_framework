@@ -15,7 +15,7 @@ class LoginPage(BasePage):
             self.click(LoginPageLocators.LOGIN_BTN)
             try:
                 expect(self.page.locator(LoginPageLocators.ERROR_MESSAGE_FOR_INVALID_CREDS)).not_to_be_visible()
-                expect(self.page.get_by_text("Dashboard")).to_be_visible()
+                expect(self.page.get_by_role("heading", name="Dashboard")).to_be_visible()
                 return True
             except AssertionError:
                 print("Credentials are invalid")
