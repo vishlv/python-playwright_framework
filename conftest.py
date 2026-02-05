@@ -15,8 +15,7 @@ def page(browser: Browser):
 
     yield page
     page.close()
-    context.close()
-    browser.close()
+
     
 
 
