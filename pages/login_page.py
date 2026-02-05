@@ -13,11 +13,13 @@ class LoginPage(BasePage):
             self.fill(LoginPageLocators.USERNAME_FIELD, username)
             self.fill(LoginPageLocators.PASSWORD_FIELD, password)
             self.click(LoginPageLocators.LOGIN_BTN)
-            if self.is_visible(LoginPageLocators.ERROR_MESSAGE_FOR_INVALID_CREDS):
+            try:
+                expect(self.page.locator(LoginPageLocators.ERROR_MESSAGE_FOR_INVALID_CREDS)).not_to_be_visible()
+                expect(self.page.get_by_text("Dashboard")).to_be_visible()
+                return True
+            except AssertionError:
                 print("Credentials are invalid")
                 return False
-            expect(self.page.get_by_text("Dashboard")).to_be_visible()
-            return True
         except TimeoutError as p:
             print(f"error occured {p}")
             return False
